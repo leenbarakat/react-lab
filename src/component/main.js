@@ -24,14 +24,14 @@ class Main extends Component {
         <FormofHorns filterByHorns={this.filterByHorns}/>
         {
           this.state.beastData.map(item => {
-          return <><HornedBeast
-              return /><HornedBeast
-                  keyword={item.keyword}
-                  image_url={item.image_url}
-                  title={item.title}
-                  description={item.description}
-                  horns={item.horns}
-                  handleOpen={this.props.handleOpen} /></>
+          return <HornedBeast
+            keyword={item.keyword}
+            image_url={item.image_url}
+            title={item.title}
+            description={item.description}
+            horns={item.horns} 
+            handleOpen={this.props.handleOpen}
+          />
           })
         }
       </>
