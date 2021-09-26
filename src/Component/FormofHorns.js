@@ -1,4 +1,4 @@
-[10:30 pm, 25/09/2021] Zaid Jwabreh: export default SelectedBeast;
+ export default SelectedBeast;
 import { Component }  from "react";
 
 class HornedBeast extends Component
@@ -40,7 +40,7 @@ class HornedBeast extends Component
         <h2>title: {this.props.title}</h2>
         <h3>word: {this.props.word}</h3>
         <img  src={this.props.image_url} style={styling} onClick={this.votes}…
-[10:35 pm, 25/09/2021] Zaid Jwabreh: import { React, Component } from 'react';
+import { React, Component } from 'react';
 import { Form } from 'react-bootstrap'
 
 class FormofHorns extends Component
