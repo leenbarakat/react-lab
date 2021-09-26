@@ -1,47 +1,112 @@
-import { React, Component } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Header from "./Components/Header";
-import Main from "./Components/Main";
-import Footer from "./Components/Footer";
-import SelectedBeast from "./Components/SelectedBeast ";
+import React from 'react';
+import Footer from './components/footer';
+import Header from './components/header';
+import Main from './components/main';
+import allbeast from './components/data.json'
+import SelectedBeast from './components/SelectedBeast';
+import Form from 'react-bootstrap/Form';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: false,
-      name: '',
-      image_url: '',
-      description:'',
+class App extends React.Component {
+
+  constructor(props){
+
+    super(props)
+
+    this.state={
+
+        sBeast: allbeast,
+          allbeast: allbeast,
+         dataC: {},
+         honors: 0,
+        show: false
+      
+      
     }
   }
-  handleClose = () => {
+
+  handleClose = ()=>{
     this.setState({
-      showModal: false
-    });
-  }
-  handleOpen = (name, image_url,description) => {
-    this.setState({
-      showModal: true,
-      name: name,
-      image_url: image_url,
-      description: description,
-    });
+      show : false
+    })
   }
 
+  
+  
+  showpost =(t)=>{
+    let dataC = allbeast.find(data => {
+
+      if (data.t === t) {
+        return data;
+      }
+    })
+    this.setState({
+      show : true,
+      dataC: dataC
+    })
+  }
+  
+
+  eventhandler = async (e) =>
+  {
+      
+        e.preventDefault();
+        await this.setState(
+            {
+        sBeast : this.filterArray(Number(e.target.value)),
+        honors: e.target.value
+    });
+
+    console.log(this.state.sBeast);
+  };
+  
+  
+  filterArray = (Number)=>{
+
+    let arr = allbeast.filter(element=>
+    {
+
+                if( Number === 0)
+                {
+                     return element;
+                }
+                else
+                 {
+                 if( element.horns === Number )
+                     {
+                        return true;
+                    }
+                else
+                    {
+                     return false;
+                     }
+      }
+    });
+
+    return arr;
+ 
+  }
+  
+
+  
+  
   render() {
     return (
       <>
-        <Header />
-        <Main handleOpen={this.handleOpen} />
-        <SelectedBeast
-          handleClose={this.handleClose}
-          showModal={this.state.showModal}
-          name={this.state.name}
-          image_url={this.state.image_url}
-          description={this.state.description}
-        />
-        <Footer/>
+        <Header/>
+
+        <Form.Select name="honors"  onChange={this.eventhandler} aria-label=" Select anything" >
+            
+                                 <option>Open this select menu</option>
+                                 <option value="all">all</option>
+                                 <option value="one">1</option>
+                                 <option value="two">2</option>
+                                 <option value="three">3</option>
+                                 <option value="200">amazing</option>
+         </Form.Select>  
+      
+            <Main  showpost={this.showpost} allbeast={this.state.sBeast}  allbeast ={this.state.allbeast}  />
+            <SelectedBeast  handleClose={this.handleClose} show={this.state.show} dataC={this.state.dataC} />
+        <Footer />
       </>
     )
   }
